@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hollow's Machine</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="div_titulo">
+        <h1>Hollow's Machine</h1>
+    </div>
+    
+    <div id="div_conteudo">
+        <div id="div_input">
+            <input type="text" id="input_numero" placeholder="Digite um número decimal">
+            <select name="select_base" id="select_base" onchange="escolherBase()">
+                <option value="10" selected >DEC</option>
+                <option value="2">BIN</option>
+                <option value="8">OCT</option>
+                <option value="16">HEX</option>
+            </select>
+        </div>
+
+        <button id="button_calcular" onclick="calcular()">Calcular</button>
+
+        <ul id="lista_bases">
+            <li id="valor_binario">
+                <p>Binário:</p>
+                <p id="texto_binario"></p>
+            </li>
+            <li id="valor_octal">
+               <p>Octal:</p>
+               <p id="texto_octal"></p>
+            </li> 
+            <li id="valor_decimal">
+                <p>Decimal:</p>
+                <p id="texto_decimal"></p>
+            </li> 
+            <li id="valor_hexadecimal">
+                <p>Hexadecimal:</p>
+                <p id="texto_hexadecimal"></p>
+            </li>
+        </ul>
+    </div>
+
+   <script>
+      function escolherBase() {
+         var opcaoSelected = select_base.options[select_base.selectedIndex].value
+
+         if (opcaoSelected === "2") {
+            input_numero.placeholder = "Digite um número binário"
+         } else if (opcaoSelected === "8") {
+            input_numero.placeholder = "Digite um número octal"
+         } else if (opcaoSelected === "10") {
+            input_numero.placeholder = "Digite um número decimal"
+         } else if (opcaoSelected === "16") {
+            input_numero.placeholder = "Digite um número hexadecimal"
+         }
+      }
+
+      function calcular() {
+         var valorInput = input_numero.value
+         var base = select_base.options[select_base.selectedIndex].value
+         var converterDecimal = parseInt(valorInput, base)
+
+         var binario = Number(converterDecimal).toString(2)
+         var octal = Number(converterDecimal).toString(8)
+         var decimal = Number(converterDecimal).toString(10)
+         var hexadecimal = Number(converterDecimal).toString(16)
+
+         lista_bases.style.display = "flex"
+         
+         if (base === "2") {
+            valor_binario.style.display = "none"
+            valor_octal.style.display = "flex"
+            valor_decimal.style.display = "flex"
+            valor_hexadecimal.style.display = "flex"
+
+            texto_octal.innerText = octal
+            texto_decimal.innerText = decimal
+            texto_hexadecimal.innerText = hexadecimal
+         } else if (base === "8") {
+            valor_binario.style.display = "flex"
+            valor_octal.style.display = "none"
+            valor_decimal.style.display = "flex"
+            valor_hexadecimal.style.display = "flex"
+
+            texto_binario.innerText = binario
+            texto_decimal.innerText = decimal
+            texto_hexadecimal.innerText = hexadecimal
+         } else if (base === "10") {
+            valor_binario.style.display = "flex"
+            valor_octal.style.display = "flex"
+            valor_decimal.style.display = "none"
+            valor_hexadecimal.style.display = "flex"
+
+            texto_binario.innerText = binario
+            texto_octal.innerText = octal
+            texto_hexadecimal.innerText = hexadecimal
+         } else if (base === "16") {
+            valor_binario.style.display = "flex"
+            valor_octal.style.display = "flex"
+            valor_decimal.style.display = "flex"
+            valor_hexadecimal.style.display = "none"
+
+            texto_octal.innerText = octal
+            texto_binario.innerText = binario
+            texto_decimal.innerText = decimal
+         }
+      }
+   </script>
+</body>
+</html>
